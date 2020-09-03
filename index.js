@@ -5,7 +5,7 @@ class RegexConventer {
     this.input = this.parentRoot.querySelector('.regex-input');
     this.submit = this.parentRoot.querySelector('.regex-submit');
     this.out = this.parentRoot.querySelector('.regex-out');
-    this.regex = /(?:(?<!n)'|(?<=\s)')((?:[\w;,.!?\s]|(?:n't))+)(?:'(?!t))/gm;
+    this.regex = /([a-z])(")([a-z])/gi;
 
     this._init();
   }
@@ -25,7 +25,8 @@ class RegexConventer {
   }
 
   _convert(rawText) {
-    return rawText.trim().replaceAll(this.regex, '"$1"');
+    let text = rawText.trim().replaceAll(/'/g, '"');
+    return text.replaceAll(this.regex, "$1'$3");
   }
 
   _render(text) {
